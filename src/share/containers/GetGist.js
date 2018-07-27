@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropType from 'prop-types';
+import axios from 'axios';
 import { Formik, Form, Field } from 'formik';
 import { sentenceCase } from 'change-case';
 import * as Yup from 'yup';
@@ -9,10 +10,24 @@ import Blurground from '../components/Blurground';
 class GetGist extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      loading: false,
+      problem: null,
+    };
+  }
+
+  handleSubmit({ gistId }) {
+    this.setState({ loading: true });
+    axios(`https://api.github.com/gists/${gistId}`)
+      .then(({ data }) => {
+        this.setState({ loading: false });
+        this.props.handleSubmit({ gistId, files: Object.values(data.files) });
+      })
+      .catch(error => this.setState({ loading: false, problem: error }));
   }
 
   render() {
+    const { loading, problem } = this.state;
     const initialValues = {
       gistId: '',
     };
@@ -26,20 +41,28 @@ class GetGist extends Component {
         <Formik
           initialValues={initialValues}
           validationSchema={schema}
-          onSubmit={(...args) => this.props.handleSubmit(...args)}
-          render={({ isSubmitting, errors }) => (
+          onSubmit={(...args) => this.handleSubmit(...args)}
+          render={({ errors }) => (
             <Form>
-              {errors &&
-                !!Object.keys(errors).length && (
-                  <Callout title="Errors" intent="danger">
-                    {Object.values(errors).map(err => (
-                      <span key={err}>
-                        {sentenceCase(err)}
+              {errors
+                ? !!Object.keys(errors).length && (
+                    <Callout title="Errors" intent="danger">
+                      {Object.values(errors).map(err => (
+                        <span key={err}>
+                          {sentenceCase(err)}
+                          <br />
+                        </span>
+                      ))}
+                    </Callout>
+                  )
+                : problem && (
+                    <Callout title="Errors" intent="danger">
+                      <span>
+                        {sentenceCase(problem.message || problem)}
                         <br />
                       </span>
-                    ))}
-                  </Callout>
-                )}
+                    </Callout>
+                  )}
               <br />
               <ControlGroup>
                 <Field
@@ -48,8 +71,8 @@ class GetGist extends Component {
                   className="bp3-input"
                   placeholder="77752bd6787c41fa600b5a5a550dfc9e"
                 />
-                <Button disabled={isSubmitting} type="submit">
-                  {isSubmitting ? 'Loading...' : 'Continue'}
+                <Button disabled={loading} type="submit">
+                  {loading ? 'Loading...' : 'Continue'}
                 </Button>
               </ControlGroup>
             </Form>

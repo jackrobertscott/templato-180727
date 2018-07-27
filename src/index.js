@@ -8,7 +8,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import App from './share/containers/App';
 import registerServiceWorker from './registerServiceWorker';
 
-import './index.css';
+import './index.scss';
 
 const app = (
   <BrowserRouter>

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import GetGist from './GetGist';
+import Dashboard from '../components/Dashboard';
+import Files from '../components/Files';
+import { Button } from '../../../node_modules/@blueprintjs/core';
 
 class App extends Component {
   constructor(props) {
@@ -8,37 +10,31 @@ class App extends Component {
     this.state = {
       gistId: null,
       files: null,
-      loading: false,
     };
   }
 
-  handleGistSubmit({ gistId }) {
-    this.setState({ gistId, loading: true });
-    axios(`https://api.github.com/gists/${gistId}`)
-      .then(({ data }) => {
-        this.setState({ files: Object.values(data.files), loading: false });
-      })
-      .catch(error => console.warn(error));
+  handleGistSubmit({ gistId, files }) {
+    this.setState({ gistId, files });
+  }
+
+  resetGist() {
+    this.setState({ gistId: null, files: null });
   }
 
   render() {
-    const { gistId, loading, files } = this.state;
+    const { gistId, files } = this.state;
     if (!gistId) {
       return (
         <GetGist handleSubmit={(...args) => this.handleGistSubmit(...args)} />
       );
     }
     return (
-      <div>
-        <h1>Welcome to Templato!</h1>
-        {loading ? (
-          <p>Loading...</p>
-        ) : (
-          <p>
-            Gist id: {gistId} (files {files.length})
-          </p>
-        )}
-      </div>
+      <Dashboard>
+        <Button onClick={(...args) => this.resetGist(...args)}>
+          Use Different Gist
+        </Button>
+        <Files files={files} />
+      </Dashboard>
     );
   }
 }
