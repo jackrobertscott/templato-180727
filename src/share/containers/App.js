@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import GetGist from './GetGist';
 import Dashboard from '../components/Dashboard';
-import Files from '../components/Files';
-import { Button } from '../../../node_modules/@blueprintjs/core';
+import Files from './Files';
+import Handle from './Handle';
 
 class App extends Component {
   constructor(props) {
@@ -30,9 +30,7 @@ class App extends Component {
     }
     return (
       <Dashboard>
-        <Button onClick={(...args) => this.resetGist(...args)}>
-          Use Different Gist
-        </Button>
+        <Handle handleReset={(...args) => this.resetGist(...args)} />
         <Files files={files} />
       </Dashboard>
     );

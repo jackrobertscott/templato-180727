@@ -11,12 +11,11 @@ const Background = styled.div`
 
 const File = styled.div`
   flex-grow: 1;
-  border-right: 1px solid ${colors.GREY0};
 `;
 
 const FileHeading = styled.div`
   padding: 20px;
-  border-bottom: 1px solid ${colors.GREY0};
+  border-bottom: 1px solid ${colors.GREY1};
   font-size: 20px;
   font-weight: bold;
 `;

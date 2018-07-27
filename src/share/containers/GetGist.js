@@ -26,6 +26,10 @@ class GetGist extends Component {
       .catch(error => this.setState({ loading: false, problem: error }));
   }
 
+  handleDemo() {
+    this.handleSubmit({ gistId: '77752bd6787c41fa600b5a5a550dfc9e' });
+  }
+
   render() {
     const { loading, problem } = this.state;
     const initialValues = {
@@ -42,7 +46,7 @@ class GetGist extends Component {
           initialValues={initialValues}
           validationSchema={schema}
           onSubmit={(...args) => this.handleSubmit(...args)}
-          render={({ errors }) => (
+          render={({ errors, setFieldValue }) => (
             <Form>
               {errors
                 ? !!Object.keys(errors).length && (
@@ -75,6 +79,9 @@ class GetGist extends Component {
                   {loading ? 'Loading...' : 'Continue'}
                 </Button>
               </ControlGroup>
+              <Button onClick={(...args) => this.handleDemo(...args)}>
+                Try Demo
+              </Button>
             </Form>
           )}
         />
