@@ -10,6 +10,7 @@ class App extends Component {
     this.state = {
       gistId: null,
       files: null,
+      tags: [],
     };
   }
 
@@ -17,12 +18,16 @@ class App extends Component {
     this.setState({ gistId, files });
   }
 
-  resetGist() {
+  handleTags(tags) {
+    this.setState({ tags });
+  }
+
+  handleResetGist() {
     this.setState({ gistId: null, files: null });
   }
 
   render() {
-    const { gistId, files } = this.state;
+    const { gistId, files, tags } = this.state;
     if (!gistId) {
       return (
         <GetGist handleSubmit={(...args) => this.handleGistSubmit(...args)} />
@@ -30,8 +35,12 @@ class App extends Component {
     }
     return (
       <Dashboard>
-        <Handle handleReset={(...args) => this.resetGist(...args)} />
-        <Files files={files} />
+        <Handle
+          files={files}
+          handleReset={(...args) => this.handleResetGist(...args)}
+          handleTags={(...args) => this.handleTags(...args)}
+        />
+        <Files files={files} tags={tags} />
       </Dashboard>
     );
   }

@@ -16,6 +16,7 @@ const Background = styled.div`
   align-items: center;
   padding: 30px;
   box-sizing: border-box;
+  text-align: center;
 `;
 
 const Blurground = ({ children }) => (

@@ -15,6 +15,7 @@
     "change-case": "^3.0.2",
     "colors-simple": "^1.7.0",
     "formik": "^1.0.2",
+    "hogan.js": "^3.0.2",
     "http-status": "^1.2.0",
     "normalize.css": "^8.0.0",
     "prop-types": "^15.6.2",

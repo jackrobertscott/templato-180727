@@ -27,7 +27,7 @@ class GetGist extends Component {
   }
 
   handleDemo() {
-    this.handleSubmit({ gistId: '77752bd6787c41fa600b5a5a550dfc9e' });
+    this.handleSubmit({ gistId: '9bbcc0f8c1808bd62678b948aea59630' });
   }
 
   render() {
@@ -46,7 +46,7 @@ class GetGist extends Component {
           initialValues={initialValues}
           validationSchema={schema}
           onSubmit={(...args) => this.handleSubmit(...args)}
-          render={({ errors, setFieldValue }) => (
+          render={({ errors }) => (
             <Form>
               {errors
                 ? !!Object.keys(errors).length && (
@@ -79,6 +79,7 @@ class GetGist extends Component {
                   {loading ? 'Loading...' : 'Continue'}
                 </Button>
               </ControlGroup>
+              <br />
               <Button onClick={(...args) => this.handleDemo(...args)}>
                 Try Demo
               </Button>
