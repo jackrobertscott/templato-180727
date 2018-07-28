@@ -2,13 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import colors from 'colors-simple';
-import { Button, ButtonGroup, Icon, Tooltip } from '@blueprintjs/core';
+import { Button, Icon, Tooltip } from '@blueprintjs/core';
 
 const Background = styled.div`
   background-color: ${colors.GREY0};
   border-top: 1px solid ${colors.GREY1};
   color: ${colors.GREY5};
-  margin-top: auto;
 `;
 
 const Actions = styled.div`
@@ -68,18 +67,18 @@ const Pages = ({
   <Background>
     <Actions>
       <Heading>Generated code</Heading>
-      <ButtonGroup>
-        {pages.length ? (
-          <Button intent="success" onClick={() => handleDownload()}>
-            Download
-          </Button>
-        ) : (
-          <Tooltip content="You can download the code after you generate some from a template">
-            <Button intent="success">Download</Button>
-          </Tooltip>
-        )}
-        <Button onClick={() => handleClearSaved()}>Remove All</Button>
-      </ButtonGroup>
+      {pages.length ? (
+        <Button intent="success" onClick={() => handleDownload()}>
+          Download
+        </Button>
+      ) : (
+        <Tooltip content="You can download the code after you generate some from a template">
+          <Button intent="success">Download</Button>
+        </Tooltip>
+      )}
+      <Button style={{ marginLeft: '10px' }} onClick={() => handleClearSaved()}>
+        Remove All
+      </Button>
     </Actions>
     <Files>
       {pages.length ? (

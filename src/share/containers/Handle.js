@@ -1,11 +1,12 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Formik, Form, Field } from 'formik';
-import { Button, Callout, ButtonGroup } from '@blueprintjs/core';
+import { Button, Callout, FormGroup } from '@blueprintjs/core';
 import Human from '../components/Human';
 import { sentenceCase } from '../../../node_modules/change-case';
 import Collection from '../components/Collection';
 import Pages from '../components/Pages';
+import Layout from '../components/Layout';
 
 class Handle extends Component {
   constructor(props) {
@@ -32,31 +33,41 @@ class Handle extends Component {
         <br />
         {tags.map(tag => (
           <Fragment key={tag.name}>
-            <Field
-              type="text"
-              name={tag.name}
-              placeholder={tag.name}
-              className="bp3-input"
-            />
-            <br />
-            <br />
+            <FormGroup label={tag.name} labelFor={tag.name}>
+              <Field
+                type="text"
+                name={tag.name}
+                placeholder="..."
+                className="bp3-input"
+              />
+            </FormGroup>
           </Fragment>
         ))}
         <hr />
-        <Field
-          type="text"
-          name="meta.folder"
-          placeholder="Folder name"
-          className="bp3-input"
-        />
+        <FormGroup
+          label="Folder name"
+          labelFor="meta.folder"
+          helperText="Save files into a file by adding a file name."
+        >
+          <Field
+            type="text"
+            name="meta.folder"
+            placeholder="..."
+            className="bp3-input"
+          />
+        </FormGroup>
         <br />
-        <br />
-        <ButtonGroup>
-          <Button disabled={loading} type="submit">
+        <Layout>
+          <Button
+            type="submit"
+            intent="primary"
+            disabled={loading}
+            style={{ flexGrow: 1, marginRight: '10px' }}
+          >
             {loading ? 'Loading...' : 'Submit'}
           </Button>
-          <Button onClick={() => this.props.handleTags()}>Reset Inputs</Button>
-        </ButtonGroup>
+          <Button onClick={() => this.props.handleTags()}>Clear Inputs</Button>
+        </Layout>
       </Form>
     );
   }

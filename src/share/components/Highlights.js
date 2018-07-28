@@ -6,7 +6,7 @@ import SyntaxHighlighter from 'react-syntax-highlighter';
 import { github } from 'react-syntax-highlighter/styles/hljs';
 
 const Background = styled.div`
-  background-color: ${colors.WHITE};
+  background-color: #f8f8f8;
 `;
 
 const File = styled.div`
@@ -16,6 +16,8 @@ const File = styled.div`
 const Heading = styled.div`
   padding: 20px 30px;
   border-bottom: 1px solid ${colors.GREY1};
+  background-color: ${colors.WHITE};
+  box-shadow: 1px 0 0 1px ${colors.GREY1};
 `;
 
 const Name = styled.div`
