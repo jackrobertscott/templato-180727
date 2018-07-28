@@ -48,19 +48,38 @@ class Handle extends Component {
   }
 
   render() {
-    const { tags } = this.props;
+    const { tags, saved } = this.props;
     const initialValues = tags.reduce(
       (all, next) => ({ ...all, [next.name]: next.value }),
       {},
     );
     return (
       <Human>
-        <Button onClick={this.props.handleReset}>Use Different Gist</Button>
+        <Button onClick={() => this.props.handleReset()}>
+          Use Different Gist
+        </Button>
+        <Button onClick={() => this.props.handleTags()}>Clear Inputs</Button>
+        <Button onClick={() => this.props.handleClearSaved()}>
+          Clear Files
+        </Button>
         <Formik
           initialValues={initialValues}
           onSubmit={(...args) => this.props.handleSubmit(...args)}
           render={(...args) => this.renderForm(...args)}
         />
+        <br />
+        <br />
+        <p>Files:</p>
+        <ul>
+          {saved.map(save => (
+            <li key={save.created}>
+              {save.created}: {save.renders.map(({ name }) => name).join(', ')}
+            </li>
+          ))}
+        </ul>
+        <br />
+        <br />
+        <Button onClick={() => this.props.handleDownload()}>Download</Button>
       </Human>
     );
   }
@@ -69,13 +88,10 @@ class Handle extends Component {
 Handle.propTypes = {
   handleReset: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  // handleTags: PropTypes.func.isRequired,
-  // files: PropTypes.arrayOf(
-  //   PropTypes.shape({
-  //     filename: PropTypes.string.isRequired,
-  //     content: PropTypes.string.isRequired,
-  //   }),
-  // ).isRequired,
+  handleTags: PropTypes.func.isRequired,
+  handleClearSaved: PropTypes.func.isRequired,
+  handleDownload: PropTypes.func.isRequired,
+  saved: PropTypes.array.isRequired,
   tags: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,

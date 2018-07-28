@@ -16,6 +16,7 @@
     "react/no-unknown-property": "off",
     "no-nested-ternary": "off",
     "no-underscore-dangle": "off",
+    "class-methods-use-this": "off",
     "valid-typeof": "off",
     "no-alert": "off"
   },

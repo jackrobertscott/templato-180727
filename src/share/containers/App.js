@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Hogan from 'hogan.js';
 import Store from 'store';
+import JSZip from 'jszip';
+import { saveAs } from 'file-saver/FileSaver';
 import GetGist from './GetGist';
 import Dashboard from '../components/Dashboard';
 import Files from './Files';
@@ -11,7 +13,6 @@ class App extends Component {
     super(props);
     this.state = {
       gistId: null,
-      files: null,
       tags: [],
       saved: Store.get('renders') || [],
     };
@@ -19,8 +20,7 @@ class App extends Component {
 
   handleGistSubmit({ gistId, files }) {
     const tags = files
-      .map(file => file.content)
-      .map(content => Hogan.scan(content))
+      .map(file => [...Hogan.scan(file.content), ...Hogan.scan(file.filename)])
       .reduce((all, next) => all.concat(next), [])
       .filter(scan => scan.tag === '_v')
       .filter(
@@ -36,20 +36,52 @@ class App extends Component {
     this.setState({ gistId, files, tags });
   }
 
-  handleTags(tags = []) {
-    this.setState({ tags });
-  }
-
   handleResetGist() {
     this.setState({ gistId: null, files: null });
   }
 
-  handleRenderFiles(tags) {
-    const templates = this.state.files.map(file => Hogan.compile(file.content));
-    const renders = templates.map(t => t.render(tags));
+  handleTags(tags = []) {
+    this.setState({ tags });
+  }
+
+  handleRenderFiles(tags = {}) {
+    const renders = this.state.files.map(file => {
+      const contentTemplate = Hogan.compile(file.content);
+      const nameTemplate = Hogan.compile(file.filename);
+      return {
+        filename: file.filename,
+        language: file.language,
+        content: file.content,
+        name: nameTemplate.render(tags),
+        render: contentTemplate.render(tags),
+        size: file.size,
+      };
+    });
     const saved = Store.get('renders') || [];
-    saved.push({ [`${Date.now()}${Math.random() * 1000}`]: renders });
+    saved.push({
+      tags,
+      renders,
+      created: Date.now(),
+    });
     Store.set('renders', saved);
+    this.setState({ saved });
+  }
+
+  handleClearSaved() {
+    Store.set('renders', []);
+    this.setState({ saved: [] });
+  }
+
+  handleDownload() {
+    const zip = new JSZip();
+    this.state.saved
+      .map(save => save.renders)
+      .forEach(group =>
+        group.forEach(({ name, render }) => zip.file(name, render)),
+      );
+    zip.generateAsync({ type: 'blob' }).then(data => {
+      saveAs(data, `templato${String(Date.now()).slice(-4)}.zip`);
+    });
   }
 
   render() {
@@ -68,6 +100,8 @@ class App extends Component {
           handleReset={(...args) => this.handleResetGist(...args)}
           handleTags={(...args) => this.handleTags(...args)}
           handleSubmit={(...args) => this.handleRenderFiles(...args)}
+          handleClearSaved={(...args) => this.handleClearSaved(...args)}
+          handleDownload={(...args) => this.handleDownload(...args)}
         />
         <Files files={files} tags={tags} />
       </Dashboard>
