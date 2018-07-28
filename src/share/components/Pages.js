@@ -78,8 +78,7 @@ const Pages = ({
             <Button intent="success">Download</Button>
           </Tooltip>
         )}
-
-        <Button onClick={() => handleClearSaved()}>Reset Code</Button>
+        <Button onClick={() => handleClearSaved()}>Remove All</Button>
       </ButtonGroup>
     </Actions>
     <Files>

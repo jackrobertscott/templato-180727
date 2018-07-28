@@ -13,14 +13,23 @@ const File = styled.div`
   flex-grow: 1;
 `;
 
-const FileHeading = styled.div`
-  padding: 20px;
+const Heading = styled.div`
+  padding: 20px 30px;
   border-bottom: 1px solid ${colors.GREY1};
-  font-size: 20px;
+`;
+
+const Name = styled.div`
+  font-size: 16px;
   font-weight: bold;
 `;
 
-const FileCode = styled(SyntaxHighlighter).attrs({
+const Meta = styled.div`
+  font-size: 12px;
+  color: ${colors.GREY3};
+  margin-top: 6px;
+`;
+
+const Code = styled(SyntaxHighlighter).attrs({
   style: github,
   showLineNumbers: true,
 })`
@@ -30,10 +39,15 @@ const FileCode = styled(SyntaxHighlighter).attrs({
 
 const Blurground = ({ files }) => (
   <Background>
-    {files.map(({ filename, content }) => (
+    {files.map(({ filename, content, language, size }) => (
       <File key={filename}>
-        <FileHeading>{filename}</FileHeading>
-        <FileCode>{content}</FileCode>
+        <Heading>
+          <Name>{filename}</Name>
+          <Meta>
+            {language} - {size} characters
+          </Meta>
+        </Heading>
+        <Code>{content}</Code>
       </File>
     ))}
   </Background>
