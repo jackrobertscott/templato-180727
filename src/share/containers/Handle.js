@@ -1,9 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Formik, Form, Field } from 'formik';
-import { Button, Callout } from '@blueprintjs/core';
+import { Button, Callout, ButtonGroup } from '@blueprintjs/core';
 import Human from '../components/Human';
 import { sentenceCase } from '../../../node_modules/change-case';
+import Collection from '../components/Collection';
+import Pages from '../components/Pages';
 
 class Handle extends Component {
   constructor(props) {
@@ -49,9 +51,12 @@ class Handle extends Component {
         />
         <br />
         <br />
-        <Button disabled={loading} type="submit">
-          {loading ? 'Loading...' : 'Continue'}
-        </Button>
+        <ButtonGroup>
+          <Button disabled={loading} type="submit">
+            {loading ? 'Loading...' : 'Submit'}
+          </Button>
+          <Button onClick={() => this.props.handleTags()}>Reset Inputs</Button>
+        </ButtonGroup>
       </Form>
     );
   }
@@ -63,43 +68,23 @@ class Handle extends Component {
       { meta: { folder: '' } },
     );
     return (
-      <Human>
-        <Button onClick={() => this.props.handleReset()}>
-          Use Different Gist
-        </Button>
-        <Button onClick={() => this.props.handleTags()}>Clear Inputs</Button>
-        <Button onClick={() => this.props.handleClearSaved()}>
-          Clear Files
-        </Button>
-        <Formik
-          initialValues={initialValues}
-          onSubmit={(...args) => this.props.handleSubmit(...args)}
-          render={(...args) => this.renderForm(...args)}
-        />
-        <br />
-        <br />
-        <p>Files:</p>
-        <ul>
-          {saved.map(save => (
-            <li key={save.created}>
-              {save.created}: {save.renders.map(({ name }) => name).join(', ')}
-            </li>
-          ))}
-        </ul>
-        <br />
-        <br />
-        <Button onClick={() => this.props.handleDownload()}>Download</Button>
+      <Human {...this.props}>
+        <Collection>
+          <Formik
+            initialValues={initialValues}
+            onSubmit={(...args) => this.props.handleSubmit(...args)}
+            render={(...args) => this.renderForm(...args)}
+          />
+        </Collection>
+        <Pages {...this.props} pages={saved} />
       </Human>
     );
   }
 }
 
 Handle.propTypes = {
-  handleReset: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   handleTags: PropTypes.func.isRequired,
-  handleClearSaved: PropTypes.func.isRequired,
-  handleDownload: PropTypes.func.isRequired,
   saved: PropTypes.array.isRequired,
   tags: PropTypes.arrayOf(
     PropTypes.shape({
