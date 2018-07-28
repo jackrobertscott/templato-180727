@@ -30,8 +30,50 @@ class GetGist extends Component {
     this.handleSubmit({ gistId: '9bbcc0f8c1808bd62678b948aea59630' });
   }
 
-  render() {
+  renderForm({ errors }) {
     const { loading, problem } = this.state;
+    return (
+      <Form>
+        {errors
+          ? !!Object.keys(errors).length && (
+              <Callout title="Errors" intent="danger">
+                {Object.values(errors).map(err => (
+                  <span key={err}>
+                    {sentenceCase(err)}
+                    <br />
+                  </span>
+                ))}
+              </Callout>
+            )
+          : problem && (
+              <Callout title="Errors" intent="danger">
+                <span>
+                  {sentenceCase(problem.message || problem)}
+                  <br />
+                </span>
+              </Callout>
+            )}
+        <br />
+        <ControlGroup>
+          <Field
+            type="text"
+            name="gistId"
+            className="bp3-input"
+            placeholder="77752bd6787c41fa600b5a5a550dfc9e"
+          />
+          <Button disabled={loading} type="submit">
+            {loading ? 'Loading...' : 'Continue'}
+          </Button>
+        </ControlGroup>
+        <br />
+        <Button onClick={(...args) => this.handleDemo(...args)}>
+          Try Demo
+        </Button>
+      </Form>
+    );
+  }
+
+  render() {
     const initialValues = {
       gistId: '',
     };
@@ -46,45 +88,7 @@ class GetGist extends Component {
           initialValues={initialValues}
           validationSchema={schema}
           onSubmit={(...args) => this.handleSubmit(...args)}
-          render={({ errors }) => (
-            <Form>
-              {errors
-                ? !!Object.keys(errors).length && (
-                    <Callout title="Errors" intent="danger">
-                      {Object.values(errors).map(err => (
-                        <span key={err}>
-                          {sentenceCase(err)}
-                          <br />
-                        </span>
-                      ))}
-                    </Callout>
-                  )
-                : problem && (
-                    <Callout title="Errors" intent="danger">
-                      <span>
-                        {sentenceCase(problem.message || problem)}
-                        <br />
-                      </span>
-                    </Callout>
-                  )}
-              <br />
-              <ControlGroup>
-                <Field
-                  type="text"
-                  name="gistId"
-                  className="bp3-input"
-                  placeholder="77752bd6787c41fa600b5a5a550dfc9e"
-                />
-                <Button disabled={loading} type="submit">
-                  {loading ? 'Loading...' : 'Continue'}
-                </Button>
-              </ControlGroup>
-              <br />
-              <Button onClick={(...args) => this.handleDemo(...args)}>
-                Try Demo
-              </Button>
-            </Form>
-          )}
+          render={(...args) => this.renderForm(...args)}
         />
       </Blurground>
     );
