@@ -62,7 +62,7 @@ const Main = styled.div`
   flex-direction: column;
 `;
 
-const Me = styled.span.attrs({ role: 'img' })`
+const Me = styled.span`
   font-size: 20px;
   line-height: 0;
   margin-left: auto;
@@ -75,11 +75,7 @@ const Human = ({ children, handleReset }) => (
         <Logo src={logo} alt="Templato" />
         <Subheading>Generate code fast using GitHub Gists</Subheading>
       </Brand>
-      <Button
-        intent="success"
-        rightIcon="git-repo"
-        onClick={() => handleReset()}
-      >
+      <Button rightIcon="git-repo" onClick={() => handleReset()}>
         Change Gist
       </Button>
     </Head>
@@ -93,11 +89,19 @@ const Human = ({ children, handleReset }) => (
         star this repo
       </RepoLink>{' '}
       or{' '}
-      <TwitterLink target="_blank" href="https://twitter.com/thejackscott">
+      <TwitterLink
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://twitter.com/thejackscott"
+      >
         follow me on twitter
       </TwitterLink>{' '}
       to see what else I work on.
-      <Me>👨‍💻</Me>
+      <Me>
+        <span role="img" aria-label="me">
+          👨‍💻
+        </span>
+      </Me>
     </Foot>
   </Background>
 );

@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Formik, Form, Field } from 'formik';
 import { sentenceCase } from 'change-case';
 import * as Yup from 'yup';
-import { Button, ControlGroup, Callout } from '@blueprintjs/core';
+import { Button, ControlGroup, Callout, FormGroup } from '@blueprintjs/core';
 import Blurground from '../components/Blurground';
 
 class GetGist extends Component {
@@ -36,7 +36,11 @@ class GetGist extends Component {
       <Form>
         {errors
           ? !!Object.keys(errors).length && (
-              <Callout title="Errors" intent="danger">
+              <Callout
+                title="Errors"
+                intent="danger"
+                style={{ marginBottom: '20px' }}
+              >
                 {Object.values(errors).map(err => (
                   <span key={err}>
                     {sentenceCase(err)}
@@ -46,27 +50,41 @@ class GetGist extends Component {
               </Callout>
             )
           : problem && (
-              <Callout title="Errors" intent="danger">
+              <Callout
+                title="Errors"
+                intent="danger"
+                style={{ marginBottom: '20px' }}
+              >
                 <span>
                   {sentenceCase(problem.message || problem)}
                   <br />
                 </span>
               </Callout>
             )}
+        <FormGroup
+          label="GitHub Gist ID"
+          labelFor="gistId"
+          labelInfo="(required)"
+        >
+          <ControlGroup vertical>
+            <Field
+              type="text"
+              name="gistId"
+              className="bp3-input"
+              placeholder="77752bd6787c41fa600b5a5a550dfc9e"
+            />
+            <Button disabled={loading} type="submit" intent="success">
+              {loading ? 'Loading...' : 'Continue'}
+            </Button>
+          </ControlGroup>
+        </FormGroup>
         <br />
-        <ControlGroup>
-          <Field
-            type="text"
-            name="gistId"
-            className="bp3-input"
-            placeholder="77752bd6787c41fa600b5a5a550dfc9e"
-          />
-          <Button disabled={loading} type="submit">
-            {loading ? 'Loading...' : 'Continue'}
-          </Button>
-        </ControlGroup>
         <br />
-        <Button onClick={(...args) => this.handleDemo(...args)}>
+        <br />
+        <Button
+          style={{ width: '100%' }}
+          onClick={(...args) => this.handleDemo(...args)}
+        >
           Try Demo
         </Button>
       </Form>
