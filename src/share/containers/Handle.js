@@ -31,15 +31,24 @@ class Handle extends Component {
         {tags.map(tag => (
           <Fragment key={tag.name}>
             <Field
+              type="text"
               name={tag.name}
               placeholder={tag.name}
-              type="text"
               className="bp3-input"
             />
             <br />
             <br />
           </Fragment>
         ))}
+        <hr />
+        <Field
+          type="text"
+          name="meta.folder"
+          placeholder="Folder name"
+          className="bp3-input"
+        />
+        <br />
+        <br />
         <Button disabled={loading} type="submit">
           {loading ? 'Loading...' : 'Continue'}
         </Button>
@@ -51,7 +60,7 @@ class Handle extends Component {
     const { tags, saved } = this.props;
     const initialValues = tags.reduce(
       (all, next) => ({ ...all, [next.name]: next.value }),
-      {},
+      { meta: { folder: '' } },
     );
     return (
       <Human>

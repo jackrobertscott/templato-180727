@@ -62,6 +62,7 @@ class App extends Component {
       tags,
       renders,
       created: Date.now(),
+      folder: tags.meta && tags.meta.folder && tags.meta.folder.trim(),
     });
     Store.set('renders', saved);
     this.setState({ saved });
@@ -74,11 +75,10 @@ class App extends Component {
 
   handleDownload() {
     const zip = new JSZip();
-    this.state.saved
-      .map(save => save.renders)
-      .forEach(group =>
-        group.forEach(({ name, render }) => zip.file(name, render)),
-      );
+    this.state.saved.forEach(({ folder, renders }) => {
+      const createPath = name => (folder ? `${folder}/${name}` : name);
+      renders.forEach(({ name, render }) => zip.file(createPath(name), render));
+    });
     zip.generateAsync({ type: 'blob' }).then(data => {
       saveAs(data, `templato${String(Date.now()).slice(-4)}.zip`);
     });
