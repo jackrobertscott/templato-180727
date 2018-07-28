@@ -1,0 +1,14 @@
+
+Hope you enjoy your new logo, here are the people that
+made your beautiful logo happen :)
+
+font name: HKGrotesk-Medium
+font link: https://hanken.co/product/hk-grotesk/
+font author: Hanken Design Co.
+font author site: https://hanken.co/
+
+icon designer: Luis Durazo
+icon designer link: /luisdurazo
+        
+{"bg":"#ffffff","icon-gradient-0":"#276D8E","icon-gradient-1":"#DDDFD4","font":"#000000"}
+      
