@@ -1,6 +1,6 @@
 # Templato
 
-> Generate files fast with GitHub Gists as templates.
+> Generate boilerplace code using GitHub Gists.
 
 After a being frustrated that there was no simple solution to creating and using my own code templates, I decided to create one. This is a simple app which helps speed up development time by generating files from your templates which are stored as GitHub Gists.
 
