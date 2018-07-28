@@ -62,6 +62,12 @@ const Main = styled.div`
   flex-direction: column;
 `;
 
+const Me = styled.span.attrs({ role: 'img' })`
+  font-size: 20px;
+  line-height: 0;
+  margin-left: auto;
+`;
+
 const Human = ({ children, handleReset }) => (
   <Background>
     <Head>
@@ -90,7 +96,8 @@ const Human = ({ children, handleReset }) => (
       <TwitterLink target="_blank" href="https://twitter.com/thejackscott">
         follow me on twitter
       </TwitterLink>{' '}
-      to see what I make next.
+      to see what else I work on.
+      <Me>👨‍💻</Me>
     </Foot>
   </Background>
 );

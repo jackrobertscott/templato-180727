@@ -68,20 +68,31 @@ class App extends Component {
     this.setState({ saved });
   }
 
+  handleRemovePage(id) {
+    const pages = Store.get('renders') || [];
+    const updated = pages.filter(page => page.created !== id);
+    Store.set('renders', updated);
+    this.setState({ saved: updated });
+  }
+
   handleClearSaved() {
     Store.set('renders', []);
     this.setState({ saved: [] });
   }
 
   handleDownload() {
-    const zip = new JSZip();
-    this.state.saved.forEach(({ folder, renders }) => {
-      const createPath = name => (folder ? `${folder}/${name}` : name);
-      renders.forEach(({ name, render }) => zip.file(createPath(name), render));
-    });
-    zip.generateAsync({ type: 'blob' }).then(data => {
-      saveAs(data, `templato${String(Date.now()).slice(-4)}.zip`);
-    });
+    if (this.state.saved.length) {
+      const zip = new JSZip();
+      this.state.saved.forEach(({ folder, renders }) => {
+        const createPath = name => (folder ? `${folder}/${name}` : name);
+        renders.forEach(({ name, render }) =>
+          zip.file(createPath(name), render),
+        );
+      });
+      zip.generateAsync({ type: 'blob' }).then(data => {
+        saveAs(data, `templato${String(Date.now()).slice(-4)}.zip`);
+      });
+    }
   }
 
   render() {
@@ -102,6 +113,7 @@ class App extends Component {
           handleSubmit={(...args) => this.handleRenderFiles(...args)}
           handleClearSaved={(...args) => this.handleClearSaved(...args)}
           handleDownload={(...args) => this.handleDownload(...args)}
+          handleRemovePage={(...args) => this.handleRemovePage(...args)}
         />
         <Files files={files} tags={tags} />
       </Dashboard>
