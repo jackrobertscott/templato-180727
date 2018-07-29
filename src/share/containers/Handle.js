@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { titleCase, sentenceCase } from 'change-case';
 import { Formik, Form, Field } from 'formik';
 import { Button, Callout, FormGroup } from '@blueprintjs/core';
 import Human from '../components/Human';
-import { sentenceCase } from '../../../node_modules/change-case';
 import Collection from '../components/Collection';
 import Pages from '../components/Pages';
 import Layout from '../components/Layout';
@@ -33,7 +33,11 @@ class Handle extends Component {
         <br />
         {tags.map(tag => (
           <Fragment key={tag.name}>
-            <FormGroup label={tag.name} labelFor={tag.name}>
+            <FormGroup
+              label={titleCase(tag.name)}
+              labelInfo={`${tag.otag}${tag.name}${tag.ctag}`}
+              labelFor={tag.name}
+            >
               <Field
                 type="text"
                 name={tag.name}

@@ -89,7 +89,7 @@ const Human = ({ children, handleReset }) => (
         target="_blank"
         href="https://github.com/jackrobertscott/templato"
       >
-        star this repo
+        see this repo on GitHub
       </RepoLink>{' '}
       or{' '}
       <TwitterLink
@@ -97,7 +97,7 @@ const Human = ({ children, handleReset }) => (
         rel="noopener noreferrer"
         href="https://twitter.com/thejackscott"
       >
-        follow me on twitter
+        follow me on Twitter
       </TwitterLink>{' '}
       to see what else I work on.
       <Me>
