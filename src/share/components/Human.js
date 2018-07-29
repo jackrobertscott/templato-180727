@@ -11,6 +11,7 @@ const Background = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
+  box-sizing: border-box;
 `;
 
 const Head = styled.div`
@@ -20,6 +21,7 @@ const Head = styled.div`
   box-sizing: border-box;
   display: flex;
   align-items: center;
+  flex-shrink: 0;
 `;
 
 const Brand = styled.div`
@@ -42,6 +44,7 @@ const Foot = Head.extend`
   border-top: 1px solid ${colors.GREY1};
   color: ${colors.GREY3};
   font-size: 12px;
+  flex-shrink: 0;
 `;
 
 const RepoLink = styled.a`
