@@ -15,10 +15,27 @@ const Background = styled.div`
   }
 `;
 
-const Collection = ({ children }) => <Background>{children}</Background>;
+const Message = styled.div`
+  font-size: 14px;
+  color: ${colors.GREY4};
+  margin-top: 10px;
+  line-height: 1.6em;
+`;
+
+const Collection = ({ children, message }) => (
+  <Background>
+    {message && <Message>{message}</Message>}
+    {children}
+  </Background>
+);
 
 Collection.propTypes = {
   children: PropTypes.any.isRequired,
+  message: PropTypes.string,
+};
+
+Collection.defaultProps = {
+  message: null,
 };
 
 export default Collection;

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import colors from 'colors-simple';
 import { Button, Icon, Tooltip } from '@blueprintjs/core';
 
@@ -30,6 +30,14 @@ const Files = styled.div`
   overflow: auto;
 `;
 
+const pulse = keyframes`
+  0% { background-color: ${colors.CLOUDS2} }
+  25% { background-color: ${colors.BLUE2} }
+  50% { background-color: ${colors.CLOUDS2} }
+  75% { background-color: ${colors.BLUE1} }
+  100% { background-color: ${colors.CLOUDS2} }
+`;
+
 const Item = styled.div`
   display: flex;
   flex-shrink: 0;
@@ -38,6 +46,10 @@ const Item = styled.div`
   font-size: 13px;
   border-bottom: 1px solid ${colors.GREY0};
   background-color: ${colors.CLOUDS2};
+  transition: 0.2s;
+  &.pulse {
+    animation: 1s ${pulse};
+  }
   &:nth-child(2n) {
     background-color: ${colors.CLOUDS4};
   }
@@ -68,22 +80,33 @@ const Pages = ({
     <Actions>
       <Heading>Generated code</Heading>
       {pages.length ? (
-        <Button intent="success" onClick={() => handleDownload()}>
+        <Button
+          rightIcon="cloud-download"
+          intent="success"
+          onClick={() => handleDownload()}
+        >
           Download
         </Button>
       ) : (
-        <Tooltip content="You can download the code after you generate some from a template">
-          <Button intent="success">Download</Button>
+        <Tooltip content="You can download the code after you generate some">
+          <Button rightIcon="cloud-download" intent="success">
+            Download
+          </Button>
         </Tooltip>
       )}
-      <Button style={{ marginLeft: '10px' }} onClick={() => handleClearSaved()}>
-        Remove All
-      </Button>
+      {pages.length > 2 && (
+        <Button
+          style={{ marginLeft: '10px' }}
+          onClick={() => handleClearSaved()}
+        >
+          Remove All
+        </Button>
+      )}
     </Actions>
     <Files>
       {pages.length ? (
         pages.map((save, index) => (
-          <Item key={save.created}>
+          <Item key={save.created} className="pulse">
             <span>{index + 1}.</span> {save.folder || '$'}{' '}
             <Icon icon="chevron-right" /> {save.renders.length} files including:{' '}
             {save.renders
@@ -95,8 +118,8 @@ const Pages = ({
         ))
       ) : (
         <Item>
-          <Icon icon="circle-arrow-up" /> Go submit some code - the files will
-          appear here.
+          <Icon style={{ marginRight: '8px' }} icon="circle-arrow-up" /> Go
+          submit some code - the files will appear here.
         </Item>
       )}
     </Files>

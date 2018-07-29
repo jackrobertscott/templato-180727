@@ -34,38 +34,7 @@ class GetGist extends Component {
     const { loading, problem } = this.state;
     return (
       <Form>
-        {errors
-          ? !!Object.keys(errors).length && (
-              <Callout
-                title="Errors"
-                intent="danger"
-                style={{ marginBottom: '20px' }}
-              >
-                {Object.values(errors).map(err => (
-                  <span key={err}>
-                    {sentenceCase(err)}
-                    <br />
-                  </span>
-                ))}
-              </Callout>
-            )
-          : problem && (
-              <Callout
-                title="Errors"
-                intent="danger"
-                style={{ marginBottom: '20px' }}
-              >
-                <span>
-                  {sentenceCase(problem.message || problem)}
-                  <br />
-                </span>
-              </Callout>
-            )}
-        <FormGroup
-          label="GitHub Gist ID"
-          labelFor="gistId"
-          labelInfo="(required)"
-        >
+        <FormGroup label="GitHub Gist ID" labelFor="gistId">
           <ControlGroup vertical>
             <Field
               type="text"
@@ -78,7 +47,30 @@ class GetGist extends Component {
             </Button>
           </ControlGroup>
         </FormGroup>
-        <br />
+        {errors && !!Object.keys(errors).length ? (
+          <Callout
+            title="Errors"
+            intent="danger"
+            style={{ marginBottom: '20px' }}
+          >
+            {Object.values(errors).map(err => (
+              <span key={err}>
+                {sentenceCase(err)}
+                <br />
+              </span>
+            ))}
+          </Callout>
+        ) : (
+          problem && (
+            <Callout
+              title="Errors"
+              intent="danger"
+              style={{ marginBottom: '20px' }}
+            >
+              <span>{sentenceCase(problem.message || problem)}</span>
+            </Callout>
+          )
+        )}
         <br />
         <br />
         <Button

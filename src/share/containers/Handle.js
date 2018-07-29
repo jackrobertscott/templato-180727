@@ -47,7 +47,7 @@ class Handle extends Component {
         <FormGroup
           label="Folder name"
           labelFor="meta.folder"
-          helperText="Save files into a file by adding a file name."
+          helperText="Save these files into a folder by adding a folder name."
         >
           <Field
             type="text"
@@ -64,7 +64,7 @@ class Handle extends Component {
             disabled={loading}
             style={{ flexGrow: 1, marginRight: '10px' }}
           >
-            {loading ? 'Loading...' : 'Submit'}
+            {loading ? 'Loading...' : 'Generate Code'}
           </Button>
           <Button onClick={() => this.props.handleTags()}>Clear Inputs</Button>
         </Layout>
@@ -80,7 +80,13 @@ class Handle extends Component {
     );
     return (
       <Human {...this.props}>
-        <Collection>
+        <Collection
+          message={
+            tags.length
+              ? `Here are all the {{squiggly}} braces we found. Go add some variables in the inputs below and click "Generate Code" to create your files!`
+              : `We didn't find any {{squiggly}} braces in your Gist...  🤨were did you put them?`
+          }
+        >
           <Formik
             initialValues={initialValues}
             onSubmit={(...args) => this.props.handleSubmit(...args)}

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import colors from 'colors-simple';
 import { Icon } from '@blueprintjs/core';
-import logo from '../assets/icon-left-font-monochrome-black.svg';
+import logo from '../assets/icon-above-font.svg';
 import gistLogo from '../assets/icon-gist.png';
 
 const Background = styled.div`
@@ -24,11 +24,14 @@ const Background = styled.div`
 const Box = styled.div`
   border-radius: 3px;
   background-color: ${colors.WHITE};
+  border: 1px solid ${colors.GREY1};
   overflow: hidden;
   display: flex;
 `;
 
 const Dark = styled.div`
+  border-radius: 3px;
+  margin: 20px 0 20px 20px;
   padding: 30px;
   background-color: ${colors.WET_ASPHALT7};
   color: ${colors.WET_ASPHALT1};
@@ -44,22 +47,27 @@ const Dark = styled.div`
 `;
 
 const Light = styled.div`
-  padding: 30px;
+  width: 400px;
+  padding: 30px 60px;
   color: ${colors.GREY4};
   display: flex;
   flex-direction: column;
+  text-align: center;
+  .bp3-callout {
+    text-align: initial;
+  }
 `;
 
 const Logo = styled.img`
-  height: 32px;
+  height: 140px;
+  margin-top: -20px;
 `;
 
 const Subheading = styled.div`
-  font-size: 12px;
+  font-size: 14px;
   color: ${colors.GREY3};
-  margin-top: -8px;
-  margin-left: 36px;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
+  margin-top: -20px;
 `;
 
 const Contents = styled.div`
@@ -67,7 +75,7 @@ const Contents = styled.div`
 `;
 
 const GistLogo = styled.img`
-  height: 20px;
+  height: 16px;
   filter: invert(100%);
   margin-bottom: 20px;
 `;
@@ -90,22 +98,33 @@ const Blurground = ({ children }) => (
       <Dark>
         <GistLogo src={gistLogo} />
         <Instructions>
-          1. Login or create a GitHub account.{'\n'}
-          2. Go to your{' '}
+          1. Login into GitHub{'\n'}
+          2. Go to{' '}
           <a
             target="_blank"
             rel="noopener noreferrer"
             href="https://gist.github.com/"
           >
             GitHub Gists
-          </a>.{'\n'}
-          3. Create a Gist using {'{{squiggly}}'} braces for variables.{'\n'}
-          4. Paste the Gist id over there{' '}
+          </a>
+          {'\n'}
+          3. Create a New Gist{'\n'}
+          4. Add{' '}
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="http://twitter.github.io/hogan.js/"
+          >
+            {'{{squiggly}}'} braces
+          </a>
+          {'\n'}
+          5. Get Gist ID from the URL{'\n'}
+          6. Paste Gist ID there{' '}
           <Icon icon="arrow-right" style={{ marginTop: '7px' }} />
           {'\n'}
-          5. Press continue.
+          7. Click {'"Continue"'}
         </Instructions>
-        <Not>We are not associated with GitHub.</Not>
+        <Not>This is not associated with GitHub.</Not>
       </Dark>
       <Light>
         <div>
