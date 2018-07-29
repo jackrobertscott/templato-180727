@@ -23,6 +23,7 @@ class App extends Component {
       .map(file => [...Hogan.scan(file.content), ...Hogan.scan(file.filename)])
       .reduce((all, next) => all.concat(next), [])
       .filter(scan => scan.tag === '_v')
+      .filter(scan => scan.n)
       .filter(
         (_, index, all) => all.findIndex(scan => scan.n === _.n) === index,
       )

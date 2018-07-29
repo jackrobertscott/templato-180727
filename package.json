@@ -6,7 +6,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "now-start": "serve --single ./build"
   },
   "dependencies": {
     "@blueprintjs/core": "^3.0.1",
@@ -26,6 +27,7 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
     "react-syntax-highlighter": "^8.0.1",
+    "serve": "^9.4.0",
     "store": "^2.0.12",
     "styled-components": "^3.3.3",
     "styled-media-query": "^2.0.2",

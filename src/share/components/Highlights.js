@@ -7,6 +7,9 @@ import { github } from 'react-syntax-highlighter/styles/hljs';
 
 const Background = styled.div`
   background-color: #f8f8f8;
+  height: 100vh;
+  box-sizing: border-box;
+  overflow: auto;
 `;
 
 const File = styled.div`
