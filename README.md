@@ -14,4 +14,4 @@ This repo was generated using create-react-app. Here are the [instructions](INST
 
 ## Authors
 
-- Jack Scott @jackrobertscott
+- Jack Scott ([follow me on twitter](https://twitter.com/thejackscott))
