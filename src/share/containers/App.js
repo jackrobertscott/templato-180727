@@ -124,7 +124,7 @@ class App extends Component {
           <a
             target="_blank"
             rel="noopener noreferrer"
-            href="https://twitter.com/thejackscott"
+            href="https://twitter.com/jacrobsco"
           >
             on Twitter
           </a>{' '}
