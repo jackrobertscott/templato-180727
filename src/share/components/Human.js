@@ -42,7 +42,7 @@ const Subheading = styled.div`
 const Foot = Head.extend`
   border: none;
   border-top: 1px solid ${colors.GREY1};
-  color: ${colors.GREY3};
+  color: ${colors.GREY4};
   font-size: 12px;
   flex-shrink: 0;
 `;

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import Hogan from 'hogan.js';
 import Store from 'store';
 import JSZip from 'jszip';
@@ -7,6 +7,7 @@ import GetGist from './GetGist';
 import Dashboard from '../components/Dashboard';
 import Files from './Files';
 import Handle from './Handle';
+import SmallScreen from '../components/SmallScreen';
 
 class App extends Component {
   constructor(props) {
@@ -98,26 +99,38 @@ class App extends Component {
 
   render() {
     const { gistId, files, tags, saved } = this.state;
-    if (!gistId) {
-      return (
-        <GetGist handleSubmit={(...args) => this.handleGistSubmit(...args)} />
-      );
-    }
     return (
-      <Dashboard>
-        <Handle
-          files={files}
-          tags={tags}
-          saved={saved}
-          handleReset={(...args) => this.handleResetGist(...args)}
-          handleTags={(...args) => this.handleTags(...args)}
-          handleSubmit={(...args) => this.handleRenderFiles(...args)}
-          handleClearSaved={(...args) => this.handleClearSaved(...args)}
-          handleDownload={(...args) => this.handleDownload(...args)}
-          handleRemovePage={(...args) => this.handleRemovePage(...args)}
-        />
-        <Files files={files} tags={tags} />
-      </Dashboard>
+      <Fragment>
+        {!gistId ? (
+          <GetGist handleSubmit={(...args) => this.handleGistSubmit(...args)} />
+        ) : (
+          <Dashboard>
+            <Handle
+              files={files}
+              tags={tags}
+              saved={saved}
+              handleReset={(...args) => this.handleResetGist(...args)}
+              handleTags={(...args) => this.handleTags(...args)}
+              handleSubmit={(...args) => this.handleRenderFiles(...args)}
+              handleClearSaved={(...args) => this.handleClearSaved(...args)}
+              handleDownload={(...args) => this.handleDownload(...args)}
+              handleRemovePage={(...args) => this.handleRemovePage(...args)}
+            />
+            <Files files={files} tags={tags} />
+          </Dashboard>
+        )}
+        <SmallScreen>
+          This app was designed to be used on large screens. Message me{' '}
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://twitter.com/thejackscott"
+          >
+            on Twitter
+          </a>{' '}
+          if you want it on mobile! ❤️
+        </SmallScreen>
+      </Fragment>
     );
   }
 }
