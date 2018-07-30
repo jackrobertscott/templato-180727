@@ -96,7 +96,7 @@ const Human = ({ children, handleReset }) => (
       <TwitterLink
         target="_blank"
         rel="noopener noreferrer"
-        href="https://twitter.com/thejackscott"
+        href="https://twitter.com/jacrobsco"
       >
         follow me on Twitter
       </TwitterLink>{' '}
