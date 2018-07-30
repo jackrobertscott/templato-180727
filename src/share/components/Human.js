@@ -39,24 +39,25 @@ const Subheading = styled.div`
   margin-left: 36px;
 `;
 
-const Foot = Head.extend`
-  border: none;
+const Foot = styled.div`
+  background-color: ${colors.GREY0};
   border-top: 1px solid ${colors.GREY1};
+  padding: 20px 30px;
   color: ${colors.GREY4};
+  box-sizing: border-box;
   font-size: 12px;
   flex-shrink: 0;
+  line-height: 2em;
 `;
 
 const RepoLink = styled.a`
   color: ${colors.BLACK};
   text-decoration: underline;
-  margin: 0 4px;
 `;
 
 const TwitterLink = styled.a`
   color: #1da1f2;
   text-decoration: underline;
-  margin: 0 4px;
 `;
 
 const Main = styled.div`
@@ -66,9 +67,9 @@ const Main = styled.div`
 `;
 
 const Me = styled.span`
-  font-size: 20px;
-  line-height: 0;
-  margin-left: auto;
+  font-size: 18px;
+  padding-left: 4px;
+  float: right;
 `;
 
 const Human = ({ children, handleReset }) => (
@@ -84,7 +85,7 @@ const Human = ({ children, handleReset }) => (
     </Head>
     <Main>{children}</Main>
     <Foot>
-      Feel free to
+      Feel free to{' '}
       <RepoLink
         target="_blank"
         href="https://github.com/jackrobertscott/templato"
@@ -99,7 +100,7 @@ const Human = ({ children, handleReset }) => (
       >
         follow me on Twitter
       </TwitterLink>{' '}
-      to see what else I work on.
+      to see what else I work on. Remember to bookmark if helpful.
       <Me>
         <span role="img" aria-label="me">
           👨‍💻
